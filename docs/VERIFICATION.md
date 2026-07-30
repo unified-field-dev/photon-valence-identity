@@ -39,4 +39,4 @@ cargo test
 - Tests may `unwrap`/`expect`; production paths map failures to typed Photon /
   identity / `anyhow` errors (no ordinary-path unwrap).
 - Sad-path assertions check typed variants / DLQ reason fields and message
-  content, not smoke-only `is_err()`.
+  content, (stronger than `is_err()` alone).
