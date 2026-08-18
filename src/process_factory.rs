@@ -118,6 +118,12 @@ impl ProcessValenceFactory {
 }
 
 impl ValenceFactory for ProcessValenceFactory {
+    /// Build a [`Valence`] from serialized actor JSON.
+    ///
+    /// # Errors
+    ///
+    /// Returns [`valence::Error`] when `actor_json` is malformed, fails actor policy (for example
+    /// [`valence::Actor::System`] on external-trust factories), or router construction fails.
     fn build(&self, actor_json: &serde_json::Value) -> valence::Result<Valence> {
         self.inner.build(actor_json)
     }

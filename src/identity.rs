@@ -92,6 +92,13 @@ impl CoreActor for ValenceActor {
 }
 
 impl IdentityFactory for ValenceIdentityFactory {
+    /// Reconstruct a Photon [`Actor`] from publish-time `actor_json`.
+    ///
+    /// # Errors
+    ///
+    /// Returns [`IdentityError::InvalidActor`] when `actor_json` is not valid JSON, does not
+    /// deserialize to [`valence::Actor`], or when the inner [`ValenceFactory::build`] fails
+    /// (including System rejection on external-trust factories).
     fn reconstruct(&self, actor_json: &str) -> Result<Box<dyn CoreActor>, IdentityError> {
         let value: serde_json::Value = serde_json::from_str(actor_json)
             .map_err(|e| IdentityError::InvalidActor(e.to_string()))?;
