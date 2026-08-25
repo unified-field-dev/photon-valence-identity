@@ -31,6 +31,31 @@ use valence::{
 };
 
 /// Router config that rejects System-shaped actors on the default external trust path.
+///
+/// Use for any factory that may receive client-supplied `actor_json`. For in-process System
+/// workers, clone and set [`valence::ActorTrust::Internal`] on the returned config.
+///
+/// Crate guide: [External-safe router config](crate#external-safe-router-config).
+///
+/// # Examples
+///
+/// ```rust,ignore
+/// use photon_core::IdentityError;
+/// use photon_valence_identity::{
+///     router_config_reject_external_system, ValenceIdentityFactory,
+/// };
+/// use valence::{install_default_mem_router, RouterValenceFactory, DEFAULT_IN_MEMORY_ROUTER_KEY};
+///
+/// let router = install_default_mem_router();
+/// let config = router_config_reject_external_system(DEFAULT_IN_MEMORY_ROUTER_KEY);
+/// let valence_factory = RouterValenceFactory::arc(router, config);
+/// let identity = ValenceIdentityFactory::new(valence_factory);
+/// let system = r#"{"System":{"operation":"probe"}}"#;
+/// match identity.reconstruct(system) {
+///     Ok(_) => panic!("System must be rejected on external trust"),
+///     Err(IdentityError::InvalidActor(msg)) => assert!(msg.contains("System")),
+/// }
+/// ```
 #[must_use]
 pub fn router_config_reject_external_system(
     default_backend_key: impl Into<String>,
