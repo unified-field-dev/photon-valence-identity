@@ -16,7 +16,7 @@
 //!
 //! ## Features
 //!
-//! - **Build Photon runtime** — Wires Photon, pins the process [`ValenceFactory`], and starts the
+//! - **Photon runtime wiring** — Wires Photon, pins the process [`ValenceFactory`], and starts the
 //!   handler executor in one boot call so `#[photon::subscribe]` handlers begin dispatching
 //!   immediately. [Get started](#build-photon-runtime).
 //!   API reference: [`build_photon_runtime`], [`PhotonRuntime`].
@@ -24,7 +24,7 @@
 //!   existing [`ValenceFactory`] when you bring your own Photon or executor wiring.
 //!   [Get started](#valence-identity-factory).
 //!   API reference: [`ValenceIdentityFactory`].
-//! - **Start executor** — Discovers `#[photon::subscribe]` handlers via [`HandlerRegistry`] and
+//! - **Handler executor** — Discovers `#[photon::subscribe]` handlers via [`HandlerRegistry`] and
 //!   runs them with backpressure, dead-letter queueing, and durable checkpoints.
 //!   [Get started](#start-executor).
 //!   API reference: [`start_executor`], [`HandlerRegistry`], [`ExecutorHandle`].
