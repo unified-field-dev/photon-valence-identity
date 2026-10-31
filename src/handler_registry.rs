@@ -144,7 +144,7 @@ mod tests {
         let registry = HandlerRegistry::new();
         assert!(registry.is_empty());
         assert_eq!(registry.len(), 0);
-        assert!(registry.topic_names().is_empty());
+        assert_eq!(registry.topic_names(), [] as [&str; 0]);
     }
 
     #[test]

@@ -47,7 +47,7 @@ async fn test_publish_returns_event_id() {
         .await
         .expect("publish");
 
-    assert!(!event_id.is_empty());
+    assert_ne!(event_id, "");
 }
 
 #[tokio::test(flavor = "multi_thread")]

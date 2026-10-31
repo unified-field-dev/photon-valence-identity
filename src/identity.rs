@@ -143,7 +143,7 @@ mod tests {
         let factory = ValenceIdentityFactory::new(mem_factory_external());
         match factory.reconstruct("not-json") {
             Ok(_) => panic!("expected invalid json"),
-            Err(IdentityError::InvalidActor(msg)) => assert!(!msg.is_empty()),
+            Err(IdentityError::InvalidActor(msg)) => assert_ne!(msg, ""),
             Err(other) => panic!("expected InvalidActor, got {other:?}"),
         }
     }
@@ -153,7 +153,7 @@ mod tests {
         let factory = ValenceIdentityFactory::new(mem_factory_external());
         match factory.reconstruct(r#"{"not_an_actor":true}"#) {
             Ok(_) => panic!("expected invalid actor"),
-            Err(IdentityError::InvalidActor(msg)) => assert!(!msg.is_empty()),
+            Err(IdentityError::InvalidActor(msg)) => assert_ne!(msg, ""),
             Err(other) => panic!("expected InvalidActor, got {other:?}"),
         }
     }
@@ -196,6 +196,6 @@ mod tests {
         })
         .expect("serialize");
         let actor = factory.reconstruct(&actor_json).expect("reconstruct");
-        assert!(!actor.label().is_empty());
+        assert_ne!(actor.label(), "");
     }
 }
